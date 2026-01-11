@@ -21,6 +21,15 @@ sap.ui.define([
 				bGenerateMissingMockData: true
 			});
 
+            // handling custom URL parameter step
+            const fnCustom = (oEvent) => {
+                const oXhr = oEvent.getParameter("oXhr");
+                if (oXhr?.url.includes("first")) {
+                    oEvent.getParameter("oFilteredData").results.splice(3, 100);
+                }
+            };
+            oMockServer.attachAfter("GET", fnCustom, "Meetups");
+
 			// start
 			oMockServer.start();
 
